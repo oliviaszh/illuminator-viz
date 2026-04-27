@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Download } from "lucide-react";
+import { Menu, X, Mail } from "lucide-react";
 
 const navLinks = [
   { href: "#what-it-is", label: "What It Is" },
-  { href: "#how-it-works", label: "How It Works" },
   { href: "#performance", label: "Performance" },
   { href: "#demo", label: "Demo" },
   { href: "#get-started", label: "Get Started" },
@@ -50,12 +49,12 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Download CTA */}
+          {/* Beta CTA */}
           <div className="hidden md:flex items-center gap-4">
             <Button asChild className="glow-border">
-              <a href="#" target="_blank" rel="noopener noreferrer">
-                <Download className="mr-2 h-4 w-4" />
-                Download
+              <a href="mailto:contact@example.com">
+                <Mail className="mr-2 h-4 w-4" />
+                Request Beta Access
               </a>
             </Button>
           </div>
@@ -85,9 +84,9 @@ const Header = () => {
               ))}
               <div className="pt-4 px-4">
                 <Button asChild className="w-full">
-                  <a href="#" target="_blank" rel="noopener noreferrer">
-                    <Download className="mr-2 h-4 w-4" />
-                    Download
+                  <a href="mailto:contact@example.com">
+                    <Mail className="mr-2 h-4 w-4" />
+                    Request Beta Access
                   </a>
                 </Button>
               </div>
