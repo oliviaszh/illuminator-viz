@@ -1,4 +1,4 @@
-import { Github, BookOpen, Mail } from "lucide-react";
+import { BookOpen, Mail } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -25,15 +25,6 @@ const Footer = () => {
               aria-label="Documentation"
             >
               <BookOpen className="w-5 h-5" />
-            </a>
-            <a
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-              aria-label="GitHub"
-            >
-              <Github className="w-5 h-5" />
             </a>
             <a
               href="mailto:contact@example.com"

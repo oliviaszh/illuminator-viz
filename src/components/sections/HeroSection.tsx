@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Play, Download } from "lucide-react";
+import { Play, Mail } from "lucide-react";
 
 const HeroSection = () => {
   const scrollToDemo = () => {
@@ -38,9 +38,9 @@ const HeroSection = () => {
               asChild
               className="text-base border-muted-foreground/30 hover:border-primary"
             >
-              <a href="#" target="_blank" rel="noopener noreferrer">
-                <Download className="mr-2 h-5 w-5" />
-                Download
+              <a href="mailto:contact@example.com">
+                <Mail className="mr-2 h-5 w-5" />
+                Request Beta Access
               </a>
             </Button>
           </div>

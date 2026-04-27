@@ -1,4 +1,4 @@
-import { Download, BookOpen, Github } from "lucide-react";
+import { Mail, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const GetStartedSection = () => {
@@ -10,20 +10,19 @@ const GetStartedSection = () => {
             Get Started
           </h2>
           <p className="text-lg text-muted-foreground mb-10">
-            Download Illuminator and start exploring your graphs in minutes. 
-            Available for Windows, macOS, and Linux.
+            Illuminator is currently in private beta. If you're interested in
+            beta testing or want to learn more, get in touch.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Button size="lg" className="text-base glow-border" asChild>
-              <a href="#" target="_blank" rel="noopener noreferrer">
-                <Download className="mr-2 h-5 w-5" />
-                Download Latest
+              <a href="mailto:contact@example.com">
+                <Mail className="mr-2 h-5 w-5" />
+                Contact for Beta Access
               </a>
             </Button>
           </div>
 
-          {/* Links */}
           <div className="flex flex-wrap justify-center gap-6">
             <a
               href="#"
@@ -33,15 +32,6 @@ const GetStartedSection = () => {
             >
               <BookOpen className="w-5 h-5" />
               <span>Documentation</span>
-            </a>
-            <a
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <Github className="w-5 h-5" />
-              <span>GitHub</span>
             </a>
           </div>
         </div>

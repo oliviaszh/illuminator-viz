@@ -14,11 +14,6 @@ const stats = [
     label: "MB Memory",
     suffix: "MB",
   },
-  {
-    value: "60",
-    label: "FPS Interaction",
-    suffix: "fps",
-  },
 ];
 
 const PerformanceSection = () => {
@@ -37,7 +32,7 @@ const PerformanceSection = () => {
 
         <div className="max-w-4xl mx-auto">
           {/* Stats grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             {stats.map((stat) => (
               <div
                 key={stat.label}
