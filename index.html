@@ -281,10 +281,6 @@
                        class="px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                         What It Is
                     </a>
-                    <a href="#performance" onclick="scrollToSection('#performance')" 
-                       class="px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                        Performance
-                    </a>
                     <a href="#demo" onclick="scrollToSection('#demo')" 
                        class="px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                         Demo
@@ -316,10 +312,6 @@
                     <a href="#what-it-is" onclick="scrollToSection('#what-it-is'); toggleMobileMenu();" 
                        class="px-4 py-3 text-left text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md transition-colors">
                         What It Is
-                    </a>
-                    <a href="#performance" onclick="scrollToSection('#performance'); toggleMobileMenu();" 
-                       class="px-4 py-3 text-left text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md transition-colors">
-                        Performance
                     </a>
                     <a href="#demo" onclick="scrollToSection('#demo'); toggleMobileMenu();" 
                        class="px-4 py-3 text-left text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md transition-colors">
@@ -443,70 +435,6 @@
             </div>
         </section>
         
-        <!-- Performance Section -->
-        <section id="performance" class="py-24 relative">
-            <div class="container">
-                <div class="max-w-3xl mx-auto text-center mb-16">
-                    <h2 class="text-3xl sm:text-4xl font-bold mb-6">
-                        Performance at Scale
-                    </h2>
-                    <p class="text-lg text-muted-foreground">
-                        Handle graphs that would bring other tools to their knees. 
-                        Illuminator maintains fluid interaction even with massive datasets.
-                    </p>
-                </div>
-                
-                <div class="max-w-4xl mx-auto">
-                    <!-- Stats grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                        <div class="text-center p-6 rounded-lg bg-card/50 border border-border">
-                            <div class="text-3xl sm:text-4xl font-bold gradient-text mb-2">
-                                100K<span class="text-lg text-muted-foreground">+</span>
-                            </div>
-                            <div class="text-sm text-muted-foreground">Nodes</div>
-                        </div>
-                        
-                        <div class="text-center p-6 rounded-lg bg-card/50 border border-border">
-                            <div class="text-3xl sm:text-4xl font-bold gradient-text mb-2">
-                                1M<span class="text-lg text-muted-foreground">+</span>
-                            </div>
-                            <div class="text-sm text-muted-foreground">Edges</div>
-                        </div>
-                        
-                        <div class="text-center p-6 rounded-lg bg-card/50 border border-border">
-                            <div class="text-3xl sm:text-4xl font-bold gradient-text mb-2">
-                                ~150<span class="text-lg text-muted-foreground">MB</span>
-                            </div>
-                            <div class="text-sm text-muted-foreground">Memory</div>
-                        </div>
-                    </div>
-                    
-                    <!-- Comparison callout -->
-                    <div class="p-6 rounded-lg bg-primary/5 border border-primary/20">
-                        <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
-                            <div class="flex-1">
-                                <h3 class="text-lg font-semibold mb-2">
-                                    Where traditional tools fail
-                                </h3>
-                                <p class="text-muted-foreground text-sm">
-                                    Most graph visualization libraries struggle past 10,000 nodes due to 
-                                    inefficient rendering and memory overhead. Illuminator's architecture 
-                                    was designed specifically to break through these limitations, enabling 
-                                    researchers to work with real-world graph sizes without compromise.
-                                </p>
-                            </div>
-                            <div class="flex-shrink-0">
-                                <div class="font-mono text-sm text-muted-foreground bg-background/50 px-4 py-3 rounded-md border border-border">
-                                    <div class="text-primary">// Memory comparison</div>
-                                    <div>Traditional: ~2GB</div>
-                                    <div>Illuminator: ~150MB</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
         
         <!-- Demo Section -->
         <section id="demo" class="py-24 bg-surface/50 relative">
