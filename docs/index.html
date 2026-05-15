@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Illuminator - 2D Graph Editor & Renderer</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <button class="sidebar-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')" aria-label="Toggle navigation">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h14M3 10h14M3 14h14"/></svg>
+  </button>
+  <a class="header-logo" href="index.html">
+    <svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="12" stroke="#58a6ff" stroke-width="2"/><circle cx="9" cy="10" r="2.5" fill="#58a6ff"/><circle cx="19" cy="8" r="2.5" fill="#bc8cff"/><circle cx="17" cy="18" r="2.5" fill="#3fb950"/><circle cx="7" cy="17" r="2.5" fill="#d29922"/><line x1="9" y1="10" x2="19" y2="8" stroke="#30363d" stroke-width="1.2"/><line x1="19" y1="8" x2="17" y2="18" stroke="#30363d" stroke-width="1.2"/><line x1="7" y1="17" x2="9" y2="10" stroke="#30363d" stroke-width="1.2"/><line x1="7" y1="17" x2="17" y2="18" stroke="#30363d" stroke-width="1.2"/></svg>
+    <span>Illuminator</span>
+  </a>
+  <div class="header-search">
+    <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 7a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-.82 4.74a6 6 0 1 1 1.06-1.06l3.04 3.04a.75.75 0 1 1-1.06 1.06l-3.04-3.04Z"/></svg>
+    <input type="text" id="searchInput" placeholder="Search documentation..." autocomplete="off">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <div class="search-kbd"><kbd>Ctrl</kbd> + <kbd>K</kbd></div>
+  <a href="../" class="header-site-link">Website</a>
+</header>
+
+<nav class="sidebar" id="sidebar">
+  <div class="nav-section">
+    <div class="nav-section-title">Getting Started</div>
+    <a class="nav-link active" href="index.html">Overview</a>
+    <a class="nav-link" href="shortcuts.html">Keyboard Shortcuts</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-title">Using Illuminator</div>
+    <a class="nav-link" href="tools.html">Tools</a>
+    <a class="nav-link" href="layouts.html">Layout Algorithms</a>
+    <a class="nav-link" href="ui.html">User Interface</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-title">Commands & Scripting</div>
+    <a class="nav-link" href="commands.html">Command Reference</a>
+    <a class="nav-link" href="query.html">Query Language</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-title">Data</div>
+    <a class="nav-link" href="data.html">File Formats & Attributes</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <div class="hero">
+    <h1><span class="accent">Illuminator</span></h1>
+    <p class="subtitle">A powerful 2D graph and network renderer &amp; editor</p>
+    <div class="hero-features">
+      <div class="hero-badge">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0Zm3.28 5.78-4 4a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 1 1 1.06-1.06L6.75 8.19l3.47-3.47a.75.75 0 1 1 1.06 1.06Z"/></svg>
+        GPU-Accelerated Rendering
+      </div>
+      <div class="hero-badge">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0Zm3.28 5.78-4 4a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 1 1 1.06-1.06L6.75 8.19l3.47-3.47a.75.75 0 1 1 1.06 1.06Z"/></svg>
+        Scriptable Console
+      </div>
+      <div class="hero-badge">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0Zm3.28 5.78-4 4a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 1 1 1.06-1.06L6.75 8.19l3.47-3.47a.75.75 0 1 1 1.06 1.06Z"/></svg>
+        CSV/TSV Import
+      </div>
+      <div class="hero-badge">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0Zm3.28 5.78-4 4a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 1 1 1.06-1.06L6.75 8.19l3.47-3.47a.75.75 0 1 1 1.06 1.06Z"/></svg>
+        Multiple Layout Algorithms
+      </div>
+      <div class="hero-badge">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0Zm3.28 5.78-4 4a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 1 1 1.06-1.06L6.75 8.19l3.47-3.47a.75.75 0 1 1 1.06 1.06Z"/></svg>
+        Expression-Based Selection
+      </div>
+    </div>
+  </div>
+
+  <section class="section" id="features">
+    <h2>Features</h2>
+    <div class="card-grid">
+      <a class="card" href="ui.html#appearance">
+        <h4>Rich Visual Styling</h4>
+        <p>Customize node shape, size, colour, rotation, border, edge width, and label appearance. Map any numeric attribute to a visual property for data-driven visualization.</p>
+      </a>
+      <a class="card" href="commands.html#select">
+        <h4>Powerful Selection</h4>
+        <p>Select nodes with click, box select, or expression queries. Expand selections along graph edges with breadth-first search. Create and manage subsets.</p>
+      </a>
+      <a class="card" href="layouts.html">
+        <h4>Multiple Layout Engines</h4>
+        <p>Force-directed (spring) layout runs in real-time. Also includes random placement and the GRIP multi-level algorithm for large graphs.</p>
+      </a>
+      <a class="card" href="data.html">
+        <h4>Flexible Data Import</h4>
+        <p>Load graphs from native <code>.ilu</code> files or CSV/TSV. Import additional attributes by joining on any existing node property.</p>
+      </a>
+      <a class="card" href="commands.html">
+        <h4>Console &amp; Scripting</h4>
+        <p>Built-in command console with a rich set of commands. Save commands to script files and replay them to automate complex workflows.</p>
+      </a>
+      <a class="card" href="tools.html">
+        <h4>Interactive Tools</h4>
+        <p>Six specialized tools: translate, rotate, scale, box select, line layout, and arc layout. Switch with number keys or hold Shift for quick translate.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Quick Start</h2>
+    <ol>
+      <li><strong>Open a graph</strong> &mdash; Use <strong>File &gt; Open</strong> (<kbd>Ctrl+O</kbd>) to load a native <code>.ilu</code> file or a <code>.csv</code>/<code>.tsv</code> edge list. For CSV files, a dialog will guide you through mapping columns to edge endpoints and attributes.</li>
+      <li><strong>Navigate</strong> &mdash; Pan with <kbd>Middle Mouse</kbd> drag and zoom with the <kbd>Scroll Wheel</kbd>.</li>
+      <li><strong>Select nodes</strong> &mdash; Click individual nodes, use the <a href="tools.html#box">Box Selector</a> (<kbd>4</kbd>) to drag a rectangle, or press <kbd>Ctrl+A</kbd> to select all.</li>
+      <li><strong>Style the graph</strong> &mdash; Open the <a href="ui.html#appearance">Appearance window</a> to adjust node size, shape, colour, edge width, and labels for the current selection.</li>
+      <li><strong>Apply a layout</strong> &mdash; Enable the <a href="layouts.html#spring">spring layout</a> from the Layout menu, or apply <a href="layouts.html#grip">GRIP</a> for larger graphs.</li>
+    </ol>
+    <p>For power users, the <a href="ui.html#console">console</a> and <a href="query.html#scripting">script files</a> provide full control over loading, selection, and styling via <a href="commands.html">commands</a>.</p>
+  </section>
+
+  <div class="page-nav">
+    <span class="spacer"></span>
+    <a href="shortcuts.html">Keyboard Shortcuts &rarr;</a>
+  </div>
+
+</main>
+
+<script src="search.js"></script>
+</body>
+</html>

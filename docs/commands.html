@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Command Reference - Illuminator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <button class="sidebar-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')" aria-label="Toggle navigation">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h14M3 10h14M3 14h14"/></svg>
+  </button>
+  <a class="header-logo" href="index.html">
+    <svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="12" stroke="#58a6ff" stroke-width="2"/><circle cx="9" cy="10" r="2.5" fill="#58a6ff"/><circle cx="19" cy="8" r="2.5" fill="#bc8cff"/><circle cx="17" cy="18" r="2.5" fill="#3fb950"/><circle cx="7" cy="17" r="2.5" fill="#d29922"/><line x1="9" y1="10" x2="19" y2="8" stroke="#30363d" stroke-width="1.2"/><line x1="19" y1="8" x2="17" y2="18" stroke="#30363d" stroke-width="1.2"/><line x1="7" y1="17" x2="9" y2="10" stroke="#30363d" stroke-width="1.2"/><line x1="7" y1="17" x2="17" y2="18" stroke="#30363d" stroke-width="1.2"/></svg>
+    <span>Illuminator</span>
+  </a>
+  <div class="header-search">
+    <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 7a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-.82 4.74a6 6 0 1 1 1.06-1.06l3.04 3.04a.75.75 0 1 1-1.06 1.06l-3.04-3.04Z"/></svg>
+    <input type="text" id="searchInput" placeholder="Search documentation..." autocomplete="off">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <div class="search-kbd"><kbd>Ctrl</kbd> + <kbd>K</kbd></div>
+  <a href="../" class="header-site-link">Website</a>
+</header>
+
+<nav class="sidebar" id="sidebar">
+  <div class="nav-section">
+    <div class="nav-section-title">Getting Started</div>
+    <a class="nav-link" href="index.html">Overview</a>
+    <a class="nav-link" href="shortcuts.html">Keyboard Shortcuts</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-title">Using Illuminator</div>
+    <a class="nav-link" href="tools.html">Tools</a>
+    <a class="nav-link" href="layouts.html">Layout Algorithms</a>
+    <a class="nav-link" href="ui.html">User Interface</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-title">Commands & Scripting</div>
+    <a class="nav-link active" href="commands.html">Command Reference</a>
+    <a class="nav-link" href="query.html">Query Language</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-title">Data</div>
+    <a class="nav-link" href="data.html">File Formats & Attributes</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <section class="section">
+    <h2>Command Reference</h2>
+    <p>Illuminator has a built-in command system accessible through the <a href="ui.html#console">console</a>. Commands can also be stored in <a href="query.html#scripting">script files</a> and replayed with <code>execute</code>. Every command supports a <code>help</code> argument for inline documentation.</p>
+
+    <div class="card-grid" style="margin-bottom: 32px;">
+      <a class="card" href="#load"><h4>load</h4><p>Load a graph from file</p></a>
+      <a class="card" href="#import"><h4>import</h4><p>Add attributes from CSV/TSV</p></a>
+      <a class="card" href="#select"><h4>select</h4><p>Manipulate the selection</p></a>
+      <a class="card" href="#set"><h4>set</h4><p>Apply style changes</p></a>
+      <a class="card" href="#map"><h4>map</h4><p>Data-driven style mapping</p></a>
+      <a class="card" href="#create"><h4>create</h4><p>Create subsets</p></a>
+      <a class="card" href="#execute"><h4>execute</h4><p>Run a script file</p></a>
+    </div>
+
+    <!-- load -->
+    <div class="cmd-block" id="load">
+      <div class="cmd-header">
+        <span class="cmd-name">load</span>
+        <span class="cmd-tag data">Data</span>
+      </div>
+      <div class="cmd-body">
+        <p>Loads a graph from a file. Supports native <code>.ilu</code> files and CSV/TSV with edge definitions.</p>
+        <div class="cmd-syntax">
+          <pre><code><span class="code-keyword">load</span> <span class="code-param">&lt;path&gt;</span> target=(<span class="code-param">tail</span>, <span class="code-param">head</span>, [<span class="code-param">type</span>,] <span class="code-param">name</span>) [delimiter=<span class="code-string">"&lt;char&gt;"</span>] [header=<span class="code-param">true|false</span>] [attributes=[(<span class="code-param">source</span>, <span class="code-param">type</span>, <span class="code-param">name</span>), ...]]</code></pre>
+        </div>
+        <table class="param-table">
+          <tr><th>Parameter</th><th>Required</th><th>Description</th></tr>
+          <tr><td>path</td><td>Yes</td><td>File path. Extension determines format: <code>.ilu</code>, <code>.csv</code>, or <code>.tsv</code></td></tr>
+          <tr><td>target</td><td>CSV/TSV</td><td>Edge definition tuple. <code>tail</code> and <code>head</code> name the source and target columns: either header names (when <code>header=true</code>, the default) or 0-based column indices (when <code>header=false</code>). <code>type</code> is the attribute type (default: <code>string</code>). <code>name</code> is the node identifier attribute name.</td></tr>
+          <tr><td>delimiter</td><td>No</td><td>Column separator. Defaults to <code>,</code> for CSV and <code>\t</code> for TSV. Accepts <code>tab</code>, <code>\t</code>, or a single character.</td></tr>
+          <tr><td>header</td><td>No</td><td>Defaults to <code>true</code>: first line is a header with column names. Set <code>header=false</code> when the file has no header; then <code>tail</code>, <code>head</code>, and each <code>source</code> in <code>attributes</code> must be non-negative integer column indices (first column is <code>0</code>).</td></tr>
+          <tr><td>attributes</td><td>No</td><td>List of additional edge attribute definitions: <code>(source_column, type, name)</code></td></tr>
+        </table>
+        <h4>Attribute Types</h4>
+        <p><code>float</code>, <code>int32</code>, <code>uint32</code>, <code>string</code>, <code>shared_string</code></p>
+        <h4>Examples</h4>
+<pre><code><span class="code-comment">// Load a native Illuminator file</span>
+<span class="code-keyword">load</span> my_graph.ilu
+
+<span class="code-comment">// Load a CSV with edge definitions</span>
+<span class="code-keyword">load</span> edges.csv target=(source, target, name)
+
+<span class="code-comment">// Load a TSV with a custom delimiter and edge attributes</span>
+<span class="code-keyword">load</span> data.tsv target=(from, to, string, id) delimiter=tab attributes=[(weight, float, weight), (type, string, category)]
+
+<span class="code-comment">// No header row: columns 0 and 1 are endpoints, column 2 is an edge weight</span>
+<span class="code-keyword">load</span> edges.csv header=false target=(<span class="code-number">0</span>, <span class="code-number">1</span>, name) attributes=[(<span class="code-number">2</span>, float, weight)]</code></pre>
+      </div>
+    </div>
+
+    <!-- import -->
+    <div class="cmd-block" id="import">
+      <div class="cmd-header">
+        <span class="cmd-name">import</span>
+        <span class="cmd-tag data">Data</span>
+      </div>
+      <div class="cmd-body">
+        <p>Adds attributes to an already-loaded graph by joining a CSV/TSV file against an existing node attribute.</p>
+        <div class="cmd-syntax">
+          <pre><code><span class="code-keyword">import</span> <span class="code-param">&lt;path&gt;</span> target=(<span class="code-param">graph_attr</span>, <span class="code-param">csv_column</span>) [delimiter=<span class="code-string">"&lt;char&gt;"</span>] [header=<span class="code-param">true|false</span>] attributes=[(<span class="code-param">source</span>, <span class="code-param">type</span>, <span class="code-param">name</span>), ...]</code></pre>
+        </div>
+        <table class="param-table">
+          <tr><th>Parameter</th><th>Required</th><th>Description</th></tr>
+          <tr><td>path</td><td>Yes</td><td>Path to a <code>.csv</code> or <code>.tsv</code> file</td></tr>
+          <tr><td>target</td><td>Yes</td><td>Join key: <code>graph_attr</code> is the name of an existing node attribute. <code>csv_column</code> is either a header name (<code>header=true</code>) or a 0-based column index (<code>header=false</code>).</td></tr>
+          <tr><td>delimiter</td><td>No</td><td>Column separator (same options as <code>load</code>)</td></tr>
+          <tr><td>header</td><td>No</td><td>Defaults to <code>true</code>. When <code>header=false</code>, the file has no header row and <code>csv_column</code> plus each attribute <code>source</code> must be a non-negative integer index.</td></tr>
+          <tr><td>attributes</td><td>Yes</td><td>One or more <code>(source_column, type, attribute_name)</code> tuples to import</td></tr>
+        </table>
+        <h4>Examples</h4>
+<pre><code><span class="code-comment">// Import score and label from a CSV, matching on the "name" attribute</span>
+<span class="code-keyword">import</span> metadata.csv target=(name, node_id) attributes=[(score, float, score), (label, string, label)]
+
+<span class="code-comment">// No header: join on graph "name" to column 0, import column 1 as score</span>
+<span class="code-keyword">import</span> scores.csv header=false target=(name, <span class="code-number">0</span>) attributes=[(<span class="code-number">1</span>, float, score)]</code></pre>
+      </div>
+    </div>
+
+    <!-- select -->
+    <div class="cmd-block" id="select">
+      <div class="cmd-header">
+        <span class="cmd-name">select</span>
+        <span class="cmd-tag selection">Selection</span>
+      </div>
+      <div class="cmd-body">
+        <p>Manipulates the current node selection. There are four variants for set operations:</p>
+        <table class="param-table">
+          <tr><th>Command</th><th>Description</th></tr>
+          <tr><td>select</td><td>Replaces the selection (clears first for <code>where</code> queries)</td></tr>
+          <tr><td>+select</td><td>Adds matching nodes to the existing selection</td></tr>
+          <tr><td>-select</td><td>Removes matching nodes from the selection</td></tr>
+          <tr><td>^select</td><td>Intersects &mdash; keeps only nodes in both the current selection and the query result</td></tr>
+        </table>
+        <h4>Operations</h4>
+        <table class="param-table">
+          <tr><th>Operation</th><th>Arguments</th><th>Description</th></tr>
+          <tr><td>all</td><td>None</td><td>Select all nodes</td></tr>
+          <tr><td>invert</td><td>None</td><td>Invert the current selection</td></tr>
+          <tr><td>none / clear</td><td>None</td><td>Clear the selection</td></tr>
+          <tr><td>expand</td><td>&lt;depth&gt;</td><td>BFS expansion of the selection by the given depth</td></tr>
+          <tr><td>where</td><td>&lt;expression&gt;</td><td>Select nodes matching a logical expression (see <a href="query.html">Query Language</a>)</td></tr>
+        </table>
+        <h4>Examples</h4>
+<pre><code><span class="code-keyword">select</span> all
+<span class="code-keyword">select</span> invert
+<span class="code-keyword">select</span> none
+<span class="code-keyword">select</span> expand <span class="code-number">3</span>
+
+<span class="code-comment">// Select nodes where the "score" attribute is above 0.5</span>
+<span class="code-keyword">select</span> where (score > <span class="code-number">0.5</span>)
+
+<span class="code-comment">// Add nodes with ID between 5 and 10 to the current selection</span>
+<span class="code-keyword">+select</span> where (nodeID > <span class="code-number">5</span> && nodeID &lt; <span class="code-number">10</span>)
+
+<span class="code-comment">// Remove nodes matching a name</span>
+<span class="code-keyword">-select</span> where (name == <span class="code-string">"Alice"</span>)
+
+<span class="code-comment">// Keep only nodes that are also high-scoring</span>
+<span class="code-keyword">^select</span> where (score >= <span class="code-number">0.9</span>)</code></pre>
+      </div>
+    </div>
+
+    <!-- set -->
+    <div class="cmd-block" id="set">
+      <div class="cmd-header">
+        <span class="cmd-name">set</span>
+        <span class="cmd-tag style">Style</span>
+      </div>
+      <div class="cmd-body">
+        <p>Applies a style change to the current selection.</p>
+        <div class="cmd-syntax">
+          <pre><code><span class="code-keyword">set</span> <span class="code-param">&lt;target&gt;</span> <span class="code-param">&lt;property&gt;</span> <span class="code-param">&lt;value&gt;</span></code></pre>
+        </div>
+
+        <h4>Node Properties</h4>
+        <table class="param-table">
+          <tr><th>Property</th><th>Value</th><th>Description</th></tr>
+          <tr><td>size</td><td>0&ndash;63</td><td>Node radius</td></tr>
+          <tr><td>shape</td><td>Index</td><td>Shape index (circle, square, etc.)</td></tr>
+          <tr><td>rotation</td><td>0&ndash;360</td><td>Rotation in degrees</td></tr>
+          <tr><td>colour</td><td>Hex</td><td>Node fill colour (e.g. <code>FF0000</code>)</td></tr>
+          <tr><td>border_size</td><td>0&ndash;63</td><td>Border thickness</td></tr>
+          <tr><td>border_colour</td><td>Hex</td><td>Border colour</td></tr>
+        </table>
+
+        <h4>Edge Properties</h4>
+        <table class="param-table">
+          <tr><th>Property</th><th>Value</th><th>Description</th></tr>
+          <tr><td>width</td><td>0&ndash;63</td><td>Edge line width</td></tr>
+          <tr><td>colour</td><td>Hex</td><td>Edge colour</td></tr>
+        </table>
+
+        <h4>Label Properties</h4>
+        <table class="param-table">
+          <tr><th>Property</th><th>Value</th><th>Description</th></tr>
+          <tr><td>content</td><td>Attribute name</td><td>Which string attribute to display as label text</td></tr>
+          <tr><td>anchor</td><td>edge / center</td><td>Where the label is anchored relative to the node</td></tr>
+          <tr><td>size</td><td>0&ndash;63</td><td>Font size</td></tr>
+          <tr><td>distance</td><td>0&ndash;63</td><td>Distance from the node</td></tr>
+          <tr><td>offset_rotation</td><td>0&ndash;360</td><td>Angle of the offset direction</td></tr>
+          <tr><td>label_rotation</td><td>0&ndash;360</td><td>Rotation of the label text itself</td></tr>
+          <tr><td>colour</td><td>Hex</td><td>Text colour</td></tr>
+          <tr><td>highlight_colour</td><td>Hex</td><td>Colour when highlighted</td></tr>
+        </table>
+
+        <h4>Examples</h4>
+<pre><code><span class="code-keyword">set</span> node size <span class="code-number">20</span>
+<span class="code-keyword">set</span> node colour <span class="code-string">3fb950</span>
+<span class="code-keyword">set</span> node shape <span class="code-number">1</span>
+<span class="code-keyword">set</span> node border_size <span class="code-number">3</span>
+<span class="code-keyword">set</span> node border_colour <span class="code-string">000000</span>
+
+<span class="code-keyword">set</span> edge width <span class="code-number">2</span>
+<span class="code-keyword">set</span> edge colour <span class="code-string">58a6ff</span>
+
+<span class="code-keyword">set</span> label content name
+<span class="code-keyword">set</span> label anchor center
+<span class="code-keyword">set</span> label size <span class="code-number">12</span>
+<span class="code-keyword">set</span> label colour <span class="code-string">ffffff</span></code></pre>
+      </div>
+    </div>
+
+    <!-- map -->
+    <div class="cmd-block" id="map">
+      <div class="cmd-header">
+        <span class="cmd-name">map</span>
+        <span class="cmd-tag style">Style</span>
+      </div>
+      <div class="cmd-body">
+        <p>Interpolates a style property across the selection based on a numeric attribute. Values are linearly mapped from the attribute range <code>[min, max]</code> to the style range <code>[value_a, value_b]</code>.</p>
+        <div class="cmd-syntax">
+          <pre><code><span class="code-keyword">map</span> <span class="code-param">&lt;target&gt;</span> <span class="code-param">&lt;property&gt;</span>[<span class="code-param">.channels</span>] <span class="code-param">&lt;attribute&gt;</span> <span class="code-param">&lt;min&gt;</span> <span class="code-param">&lt;max&gt;</span> <span class="code-param">&lt;value_a&gt;</span> <span class="code-param">&lt;value_b&gt;</span></code></pre>
+        </div>
+        <p>The optional <code>.channels</code> suffix lets you target specific colour channels: <code>r</code>, <code>g</code>, <code>b</code>, <code>a</code>, or combinations like <code>rgb</code>, <code>rgba</code>. Without a suffix, all channels are affected.</p>
+
+        <h4>Mappable Node Properties</h4>
+        <table class="param-table">
+          <tr><th>Property</th><th>Value Range</th></tr>
+          <tr><td>size</td><td>0&ndash;63</td></tr>
+          <tr><td>border_size</td><td>0&ndash;63</td></tr>
+          <tr><td>colour[.channels]</td><td>Hex colours</td></tr>
+          <tr><td>border_colour[.channels]</td><td>Hex colours</td></tr>
+        </table>
+
+        <h4>Mappable Edge Properties</h4>
+        <table class="param-table">
+          <tr><th>Property</th><th>Value Range</th></tr>
+          <tr><td>width</td><td>0&ndash;63</td></tr>
+          <tr><td>colour[.channels]</td><td>Hex colours</td></tr>
+        </table>
+
+        <h4>Mappable Label Properties</h4>
+        <table class="param-table">
+          <tr><th>Property</th><th>Value Range</th></tr>
+          <tr><td>size</td><td>0&ndash;63</td></tr>
+          <tr><td>colour[.channels]</td><td>Hex colours</td></tr>
+          <tr><td>highlight_colour[.channels]</td><td>Hex colours</td></tr>
+        </table>
+
+        <h4>Examples</h4>
+<pre><code><span class="code-comment">// Map node size from score range [0, 1] to sizes [5, 40]</span>
+<span class="code-keyword">map</span> node size score <span class="code-number">0</span> <span class="code-number">1</span> <span class="code-number">5</span> <span class="code-number">40</span>
+
+<span class="code-comment">// Map node colour from blue to red based on a "temperature" attribute (0-100)</span>
+<span class="code-keyword">map</span> node colour temperature <span class="code-number">0</span> <span class="code-number">100</span> <span class="code-string">0000ff</span> <span class="code-string">ff0000</span>
+
+<span class="code-comment">// Map only the red channel of node colour</span>
+<span class="code-keyword">map</span> node colour.r intensity <span class="code-number">0</span> <span class="code-number">255</span> <span class="code-string">000000</span> <span class="code-string">ff0000</span>
+
+<span class="code-comment">// Map edge width based on a weight attribute</span>
+<span class="code-keyword">map</span> edge width weight <span class="code-number">0</span> <span class="code-number">10</span> <span class="code-number">1</span> <span class="code-number">8</span>
+
+<span class="code-comment">// Map label size by importance</span>
+<span class="code-keyword">map</span> label size importance <span class="code-number">0</span> <span class="code-number">100</span> <span class="code-number">8</span> <span class="code-number">32</span></code></pre>
+      </div>
+    </div>
+
+    <!-- create -->
+    <div class="cmd-block" id="create">
+      <div class="cmd-header">
+        <span class="cmd-name">create</span>
+        <span class="cmd-tag selection">Selection</span>
+      </div>
+      <div class="cmd-body">
+        <p>Creates new objects from the current selection.</p>
+        <div class="cmd-syntax">
+          <pre><code><span class="code-keyword">create</span> subset <span class="code-param">&lt;name&gt;</span></code></pre>
+        </div>
+        <p>Creates a named subset from the currently selected nodes. Subsets can be recalled in the <a href="ui.html#subset">Subset window</a> to quickly restore selections.</p>
+        <h4>Example</h4>
+<pre><code><span class="code-keyword">select</span> where (group == <span class="code-string">"cluster_a"</span>)
+<span class="code-keyword">create</span> subset cluster_a</code></pre>
+      </div>
+    </div>
+
+    <!-- execute -->
+    <div class="cmd-block" id="execute">
+      <div class="cmd-header">
+        <span class="cmd-name">execute</span>
+        <span class="cmd-tag scripting">Scripting</span>
+      </div>
+      <div class="cmd-body">
+        <p>Runs a script file containing one command per line.</p>
+        <div class="cmd-syntax">
+          <pre><code><span class="code-keyword">execute</span> <span class="code-param">&lt;path&gt;</span></code></pre>
+        </div>
+        <p>Each line is processed as if typed into the console. Text after <code>//</code> is treated as a comment. Empty lines are skipped. If any line throws an error, execution stops and the error is reported with the line number.</p>
+        <h4>Example</h4>
+<pre><code><span class="code-keyword">execute</span> scripts/setup.txt</code></pre>
+        <p>You can also run scripts from <strong>Script &gt; Execute...</strong> in the menu bar, which opens a file picker. Recently run scripts appear in the Script menu for quick re-execution.</p>
+        <p>See <a href="query.html#scripting">Script Files</a> for syntax details and a full example script.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="page-nav">
+    <a href="ui.html">&larr; User Interface</a>
+    <span class="spacer"></span>
+    <a href="query.html">Query Language &rarr;</a>
+  </div>
+
+</main>
+
+<script src="search.js"></script>
+</body>
+</html>

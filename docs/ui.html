@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Interface - Illuminator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <button class="sidebar-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')" aria-label="Toggle navigation">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h14M3 10h14M3 14h14"/></svg>
+  </button>
+  <a class="header-logo" href="index.html">
+    <svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="12" stroke="#58a6ff" stroke-width="2"/><circle cx="9" cy="10" r="2.5" fill="#58a6ff"/><circle cx="19" cy="8" r="2.5" fill="#bc8cff"/><circle cx="17" cy="18" r="2.5" fill="#3fb950"/><circle cx="7" cy="17" r="2.5" fill="#d29922"/><line x1="9" y1="10" x2="19" y2="8" stroke="#30363d" stroke-width="1.2"/><line x1="19" y1="8" x2="17" y2="18" stroke="#30363d" stroke-width="1.2"/><line x1="7" y1="17" x2="9" y2="10" stroke="#30363d" stroke-width="1.2"/><line x1="7" y1="17" x2="17" y2="18" stroke="#30363d" stroke-width="1.2"/></svg>
+    <span>Illuminator</span>
+  </a>
+  <div class="header-search">
+    <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 7a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-.82 4.74a6 6 0 1 1 1.06-1.06l3.04 3.04a.75.75 0 1 1-1.06 1.06l-3.04-3.04Z"/></svg>
+    <input type="text" id="searchInput" placeholder="Search documentation..." autocomplete="off">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <div class="search-kbd"><kbd>Ctrl</kbd> + <kbd>K</kbd></div>
+  <a href="../" class="header-site-link">Website</a>
+</header>
+
+<nav class="sidebar" id="sidebar">
+  <div class="nav-section">
+    <div class="nav-section-title">Getting Started</div>
+    <a class="nav-link" href="index.html">Overview</a>
+    <a class="nav-link" href="shortcuts.html">Keyboard Shortcuts</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-title">Using Illuminator</div>
+    <a class="nav-link" href="tools.html">Tools</a>
+    <a class="nav-link" href="layouts.html">Layout Algorithms</a>
+    <a class="nav-link active" href="ui.html">User Interface</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-title">Commands & Scripting</div>
+    <a class="nav-link" href="commands.html">Command Reference</a>
+    <a class="nav-link" href="query.html">Query Language</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-title">Data</div>
+    <a class="nav-link" href="data.html">File Formats & Attributes</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <section class="section">
+    <h2>User Interface</h2>
+    <p>Illuminator uses a dockable window system with multi-viewport support. All panels can be rearranged, docked side-by-side, or floated as standalone windows.</p>
+
+    <h3 id="appearance">Appearance Window</h3>
+    <p>The primary styling panel, with three tabs for the different object types. All changes apply to the <strong>current selection</strong>.</p>
+    <h4>Nodes Tab</h4>
+    <ul>
+      <li><strong>Node Size</strong> &mdash; Slider (0&ndash;63) controlling the radius of selected nodes</li>
+      <li><strong>Node Shape</strong> &mdash; Dropdown to pick from available shapes (circle, square, etc.)</li>
+      <li><strong>Node Rotation</strong> &mdash; Slider (0&ndash;360&deg;). Hold <kbd>Alt</kbd> while dragging to snap to 45&deg; increments.</li>
+      <li><strong>Border Size</strong> &mdash; Slider (0&ndash;63) for border thickness</li>
+      <li><strong>Node Colour</strong> &mdash; Colour picker with alpha</li>
+      <li><strong>Border Colour</strong> &mdash; Colour picker (no alpha)</li>
+      <li><strong>Map Style</strong> &mdash; Opens the Map Style modal to drive any property from a numeric attribute</li>
+    </ul>
+    <h4>Edges Tab</h4>
+    <ul>
+      <li><strong>Edge Width</strong> &mdash; Slider (0&ndash;63)</li>
+      <li><strong>Edge Colour</strong> &mdash; Colour picker with alpha</li>
+      <li><strong>Map Style</strong> &mdash; Data-driven edge styling</li>
+    </ul>
+    <h4>Labels Tab</h4>
+    <ul>
+      <li><strong>Label Content</strong> &mdash; Dropdown to select which string attribute to display as text</li>
+      <li><strong>Label Anchor</strong> &mdash; Edge (at node border) or Center (at node center)</li>
+      <li><strong>Label Distance</strong> &mdash; Offset from the node (0&ndash;63)</li>
+      <li><strong>Label Offset Rotation</strong> &mdash; Direction of the offset (0&ndash;360&deg;)</li>
+      <li><strong>Label Text Rotation</strong> &mdash; Rotation of the text itself (0&ndash;360&deg;)</li>
+      <li><strong>Label Font Size</strong> &mdash; Slider (0&ndash;63)</li>
+      <li><strong>Text Colour / Highlight Colour</strong> &mdash; Colour pickers</li>
+      <li><strong>Map Style</strong> &mdash; Data-driven label styling</li>
+    </ul>
+
+    <h3 id="selection">Selection Window</h3>
+    <p>Displays sortable tables of the currently selected nodes and edges, along with all their attributes. The window is split into a node pane (top) and an edge pane (bottom) with a draggable splitter to resize them.</p>
+    <ul>
+      <li><strong>Click</strong> a row to highlight it</li>
+      <li><strong>Shift-click</strong> to highlight a range of rows</li>
+      <li><strong>Ctrl-click</strong> to toggle individual rows</li>
+      <li><strong>Right-click</strong> to open a context menu: set the selection to highlighted rows, or remove highlighted rows from the selection</li>
+    </ul>
+    <p>An <strong>Expand Selection</strong> dialog is also accessible here, letting you grow the selection outward along graph edges by a specified BFS depth.</p>
+
+    <h3 id="layout">Layout Window</h3>
+    <p>Contains collapsible sections for each layout algorithm with their tunable parameters and apply buttons. See the <a href="layouts.html">Layout Algorithms</a> page for parameter details.</p>
+    <ul>
+      <li><strong>Force-Directed (Live)</strong> &mdash; Enable/disable toggle plus repulsion, spring strength, ideal edge length sliders. Fix selected nodes checkbox.</li>
+      <li><strong>Random</strong> &mdash; Spacing slider and Apply button</li>
+      <li><strong>GRIP</strong> &mdash; Ideal edge length, rounds per level, and Apply button</li>
+    </ul>
+
+    <h3 id="subset">Subset Window</h3>
+    <p>Manage named subsets of nodes. Create a subset from the current selection with <kbd>Ctrl+N</kbd> or via <strong>Selection &gt; Create Subset</strong>.</p>
+    <ul>
+      <li>The left panel lists all named subsets</li>
+      <li>Selecting a subset shows its nodes in the right panel</li>
+      <li>Subsets can be created, updated, selected (restoring the selection), or deleted</li>
+    </ul>
+    <p>Subsets can also be created via the <a href="commands.html#create"><code>create subset</code></a> command.</p>
+
+    <h3 id="console">Console</h3>
+    <p>Toggle via <strong>View &gt; Console</strong>. Type any command and press Enter to execute it. All <a href="commands.html">commands</a> work here, and error messages and script output are displayed inline. The console is essential for using the <a href="query.html">query language</a> and running <a href="query.html#scripting">scripts</a>.</p>
+
+    <h3 id="menus">Menu Bar</h3>
+    <p>The menu bar at the top of the application provides access to all major features:</p>
+    <table class="param-table">
+      <tr><th>Menu</th><th>Items</th></tr>
+      <tr><td>File</td><td>Open (<kbd>Ctrl+O</kbd>), Save As</td></tr>
+      <tr><td>Script</td><td>Execute a script file, plus a list of recently run scripts for quick re-execution</td></tr>
+      <tr><td>Selection</td><td>Edge selection mode (Among / All), Select All, Invert, Clear, Expand, Create Subset, Sort</td></tr>
+      <tr><td>Renderer</td><td>Reset Camera, toggle rendering of Nodes / Edges / Labels</td></tr>
+      <tr><td>Layout</td><td>Toggle spring layout, Apply Random layout, Apply GRIP layout</td></tr>
+      <tr><td>View</td><td>Toggle Console, Appearance, Subset, Selection, and Layout windows</td></tr>
+    </table>
+
+    <h4>Edge Selection Mode</h4>
+    <p>Under <strong>Selection &gt; Edge Selection Mode</strong>:</p>
+    <ul>
+      <li><strong>Among</strong> (default) &mdash; Only edges where <em>both</em> endpoints are selected are included in the edge selection</li>
+      <li><strong>All</strong> &mdash; Any edge touching at least one selected node is included</li>
+    </ul>
+  </section>
+
+  <div class="page-nav">
+    <a href="layouts.html">&larr; Layout Algorithms</a>
+    <span class="spacer"></span>
+    <a href="commands.html">Command Reference &rarr;</a>
+  </div>
+
+</main>
+
+<script src="search.js"></script>
+</body>
+</html>
